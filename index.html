@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <title>لوحة متابعة العادات والنوم</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +25,7 @@
     --check:#3fbf7f;
     --cross:#f0616b;
     --gold:#e6c15a;
-    --radius:18px;
+    --radius:16px;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -36,67 +36,45 @@
       radial-gradient(900px 500px at 85% 0%, #14203a 0%, transparent 55%),
       var(--bg);
     color:var(--text);
-    padding:22px 18px 60px;
+    padding:18px 14px 50px;
     line-height:1.5;
   }
   h1,h2,h3{margin:0;font-weight:800;}
   .wrap{max-width:1560px;margin:0 auto;}
 
-  /* ===== Header ===== */
-  .header{
-    text-align:center;
-    margin-bottom:22px;
-    position:relative;
-  }
+  .header{text-align:center;margin-bottom:18px;}
   .header .title{
-    font-size:30px;
+    font-size:clamp(20px,4vw,30px);
     font-weight:900;
-    letter-spacing:.3px;
     background:linear-gradient(90deg,#9fb4ff,#f0b3d8);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
   }
-  .header .sub{
-    color:var(--muted);
-    font-size:14px;
-    margin-top:6px;
-    font-weight:600;
-  }
-  .header-controls{
-    display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
-    margin-top:16px;
-  }
+  .header-controls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px;}
   .btn{
-    background:var(--panel);
-    border:1px solid var(--line);
-    color:var(--text);
-    padding:9px 18px;
-    border-radius:12px;
-    font-family:inherit;
-    font-size:13px;
-    font-weight:700;
-    cursor:pointer;
-    transition:.15s;
+    background:var(--panel); border:1px solid var(--line); color:var(--text);
+    padding:9px 16px; border-radius:12px; font-family:inherit; font-size:13px;
+    font-weight:700; cursor:pointer; transition:.15s; white-space:nowrap;
   }
   .btn:hover{border-color:var(--cyan);color:var(--cyan);}
   .btn.primary{background:linear-gradient(135deg,#3d6cf0,#5aa9f0);border:none;color:#fff;}
   .btn.primary:hover{filter:brightness(1.1);color:#fff;}
   .btn.danger{color:var(--cross);}
   .btn.small{padding:5px 10px;font-size:11px;border-radius:8px;}
+  .btn.icon{padding:8px 12px;font-size:15px;}
+  .btn:disabled{opacity:.35;cursor:default;}
+  .btn:disabled:hover{border-color:var(--line);color:var(--text);}
 
-  /* ===== Settings panel ===== */
   .settings-panel{
     max-width:640px;margin:14px auto 0;
     background:linear-gradient(180deg,var(--panel),var(--panel-2));
     border:1px solid var(--line);border-radius:var(--radius);
-    padding:20px;display:none;
+    padding:18px;display:none;
   }
   .settings-panel.open{display:block;}
-  .settings-panel h3{font-size:14px;color:var(--muted);margin-bottom:14px;}
-  .settings-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px;align-items:center;}
+  .settings-panel h3{font-size:13px;color:var(--muted);margin-bottom:12px;}
+  .settings-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;align-items:center;}
   .settings-row label{font-size:13px;color:#c8d0e0;font-weight:600;}
-  .radio-group{display:flex;gap:10px;}
+  .radio-group{display:flex;gap:8px;}
   .radio-opt{
     display:flex;align-items:center;gap:6px;
     background:var(--panel-2);border:1px solid var(--line);
@@ -104,120 +82,118 @@
   }
   .radio-opt.active{border-color:var(--cyan);color:var(--cyan);}
   input[type="date"], input[type="number"], input[type="text"]{
-    background:var(--panel-2);
-    border:1px solid var(--line);
-    color:var(--text);
-    padding:8px 10px;
-    border-radius:9px;
-    font-family:inherit;
-    font-size:13px;
+    background:var(--panel-2); border:1px solid var(--line); color:var(--text);
+    padding:8px 10px; border-radius:9px; font-family:inherit; font-size:13px;
   }
   input:focus{outline:2px solid var(--cyan);outline-offset:1px;}
+  .settings-note{font-size:11.5px;color:var(--muted);margin-top:4px;}
 
-  /* ===== Grid layout ===== */
-  .grid{
-    display:grid;
-    grid-template-columns: 240px 1fr 260px;
-    gap:18px;
-    margin-top:22px;
+  /* period nav */
+  .period-nav{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    margin:16px 0 14px;flex-wrap:wrap;
   }
+  .period-label{font-size:14px;font-weight:700;color:#c8d0e0;text-align:center;min-width:180px;}
+  .period-badge{
+    font-size:10.5px;color:var(--gold);font-weight:700;display:block;margin-top:2px;
+  }
+
+  .grid{display:grid;grid-template-columns:260px 1fr 280px;gap:16px;align-items:start;}
   .panel{
     background:linear-gradient(180deg,var(--panel) 0%, var(--panel-2) 100%);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:18px;
+    border:1px solid var(--line); border-radius:var(--radius); padding:16px;
+    min-width:0;
   }
-  .panel h3{font-size:13px;color:var(--muted);margin-bottom:12px;font-weight:700;letter-spacing:.2px;}
+  .panel h3{font-size:13px;color:var(--muted);margin-bottom:12px;font-weight:700;}
 
-  .stats-row{display:flex;gap:12px;margin-bottom:16px;}
+  .stats-row{display:flex;gap:10px;margin-bottom:14px;}
   .stat-card{
     flex:1;background:linear-gradient(180deg,var(--panel) 0%, var(--panel-2) 100%);
-    border:1px solid var(--line);border-radius:var(--radius);padding:16px;text-align:center;
+    border:1px solid var(--line);border-radius:var(--radius);padding:14px;text-align:center;min-width:0;
   }
-  .stat-card .num{font-size:28px;font-weight:900;}
+  .stat-card .num{font-size:clamp(20px,4vw,26px);font-weight:900;}
   .stat-card.check .num{color:var(--check);}
   .stat-card.cross .num{color:var(--cross);}
-  .stat-card .label{font-size:13px;color:var(--muted);margin-top:4px;font-weight:700;}
+  .stat-card .label{font-size:12px;color:var(--muted);margin-top:3px;font-weight:700;}
 
   .habit-list{list-style:none;margin:0;padding:0;font-size:13.5px;}
-  .habit-list li{
-    display:flex;gap:10px;align-items:center;padding:9px 4px;border-bottom:1px solid var(--line);
-    color:#d3d9e8;
-  }
+  .habit-list li{display:flex;gap:10px;align-items:center;padding:8px 4px;border-bottom:1px solid var(--line);color:#d3d9e8;}
   .habit-list li:last-child{border-bottom:none;}
   .habit-list li span.idx{color:var(--muted);width:18px;flex:none;font-weight:700;}
   .habit-list.edit li{gap:8px;flex-wrap:wrap;}
-  .habit-list.edit input[type="text"]{flex:1;min-width:110px;}
-  .habit-list.edit input[type="number"]{width:60px;}
-  .add-habit-row{display:flex;gap:8px;margin-top:12px;}
-  .add-habit-row input[type="text"]{flex:1;}
-  .add-habit-row input[type="number"]{width:70px;}
+  .habit-list.edit input[type="text"]{flex:1;min-width:100px;}
+  .habit-list.edit input[type="number"]{width:56px;}
+  .add-habit-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+  .add-habit-row input[type="text"]{flex:1;min-width:120px;}
+  .add-habit-row input[type="number"]{width:64px;}
+  .empty-state{color:var(--muted);font-size:13px;text-align:center;padding:18px 6px;}
 
   .chart-box canvas{width:100% !important;}
-  #progressChart{height:260px !important;}
-  #trendChart{height:300px !important;}
-  #sleepChart{height:280px !important;}
+  #progressChart{height:240px !important;}
+  #trendChart{height:280px !important;}
+  #sleepChart{height:360px !important;}
 
-  .table-scroll{overflow-x:auto;}
-  table.habits{border-collapse:collapse;width:100%;min-width:960px;font-size:12px;}
-  table.habits thead tr.week-row th{padding:7px 0;font-size:12.5px;font-weight:800;border-radius:8px;color:#fff;}
-  table.habits thead tr.day-row th{padding:5px 0;color:var(--muted);font-weight:700;font-size:10.5px;}
-  table.habits tbody td.habit-name{
-    text-align:right;padding-right:10px;white-space:nowrap;color:#d3d9e8;font-size:12.5px;font-weight:600;
-  }
-  table.habits tbody tr:hover td.habit-name{color:var(--cyan);}
+  .week-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;justify-content:center;}
+  .week-legend span{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);font-weight:700;}
+  .week-legend .dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  table.habits{border-collapse:collapse;width:100%;min-width:840px;font-size:12px;}
+  table.habits thead tr.week-row th{padding:6px 0;font-size:12px;font-weight:800;border-radius:8px;color:#fff;}
+  table.habits thead tr.day-row th{padding:5px 0;color:var(--muted);font-weight:700;font-size:10px;}
+  table.habits tbody td.row-name{text-align:right;padding-right:10px;white-space:nowrap;color:#d3d9e8;font-size:12px;font-weight:600;position:sticky;right:0;background:var(--panel);}
+  table.habits tbody tr:hover td.row-name{color:var(--cyan);}
   .cell-mark{
-    width:22px;height:22px;border-radius:6px;display:inline-flex;
-    align-items:center;justify-content:center;font-size:12px;font-weight:800;
-    border:1px solid var(--line);cursor:pointer;user-select:none;transition:.12s;
+    width:20px;height:20px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:800;border:1px solid var(--line);cursor:pointer;user-select:none;transition:.12s;
   }
   .cell-mark:hover{transform:scale(1.12);}
   .cell-mark.yes{background:rgba(63,191,127,.2);color:var(--check);border-color:rgba(63,191,127,.55);}
   .cell-mark.no{background:rgba(240,97,107,.12);color:var(--cross);border-color:rgba(240,97,107,.35);}
+  .sleep-cell input{width:44px;text-align:center;padding:4px 3px;font-size:11px;}
 
-  .progress-list{width:100%;border-collapse:collapse;font-size:12.5px;}
-  .progress-list th{color:var(--muted);text-align:right;font-weight:700;padding:5px 3px;font-size:11px;}
-  .progress-list td{padding:7px 3px;color:#d3d9e8;vertical-align:middle;}
-  .bar-track{background:#0b1424;border-radius:7px;height:11px;width:100%;overflow:hidden;}
+  .progress-list{width:100%;border-collapse:collapse;font-size:12px;}
+  .progress-list th{color:var(--muted);text-align:right;font-weight:700;padding:5px 3px;font-size:10.5px;}
+  .progress-list td{padding:6px 3px;color:#d3d9e8;vertical-align:middle;}
+  .bar-track{background:#0b1424;border-radius:7px;height:10px;width:100%;overflow:hidden;}
   .bar-fill{height:100%;border-radius:7px;}
-  .goal-tag{font-size:10.5px;color:var(--gold);font-weight:700;white-space:nowrap;}
+  .goal-tag{font-size:10px;color:var(--gold);font-weight:700;white-space:nowrap;}
 
-  .weekly-list{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:8px;}
-  .weekly-list td{padding:7px 3px;color:#d3d9e8;}
-
-  .sleep-input-table{width:100%;border-collapse:collapse;font-size:12px;}
-  .sleep-input-table th{color:var(--muted);font-size:11px;padding:4px;text-align:center;}
-  .sleep-input-table td{padding:4px;text-align:center;}
-  .sleep-input-table input{width:56px;text-align:center;padding:5px 4px;}
-  .sleep-scroll{max-height:260px;overflow-y:auto;}
-
-  .avg-row{display:flex;gap:10px;margin-top:12px;}
-  .avg-card{flex:1;background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;}
-  .avg-card .v{font-size:16px;font-weight:900;color:var(--cyan);}
-  .avg-card .l{font-size:10.5px;color:var(--muted);margin-top:2px;font-weight:600;}
-
-  .mid-section{margin-top:18px;}
-  .sleep-section{margin-top:18px;display:grid;grid-template-columns:260px 1fr 260px;gap:18px;}
+  .weekly-list{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px;}
+  .weekly-list td{padding:6px 3px;color:#d3d9e8;}
 
   .legend{display:flex;gap:16px;font-size:12px;color:var(--muted);margin-top:10px;justify-content:center;font-weight:600;}
   .legend span{display:inline-flex;align-items:center;gap:6px;}
   .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
 
-  .simple-list{list-style:none;margin:0;padding:0;font-size:13.5px;}
-  .simple-list li{
-    padding:9px 4px;border-bottom:1px solid var(--line);color:#d3d9e8;font-weight:600;
-    display:flex;align-items:center;gap:10px;
-  }
+  .simple-list{list-style:none;margin:0;padding:0;font-size:13px;}
+  .simple-list li{padding:8px 4px;border-bottom:1px solid var(--line);color:#d3d9e8;font-weight:600;display:flex;align-items:center;gap:10px;}
   .simple-list li:last-child{border-bottom:none;}
   .simple-list li span.idx{
-    width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-    font-size:11px;font-weight:800;flex:none;
+    width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:10.5px;font-weight:800;flex:none;
   }
   .simple-list.top li span.idx{background:rgba(63,191,127,.18);color:var(--check);}
   .simple-list.bottom li span.idx{background:rgba(240,97,107,.15);color:var(--cross);}
 
+  .avg-row{display:flex;gap:10px;margin-top:14px;}
+  .avg-card{flex:1;background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;}
+  .avg-card .v{font-size:16px;font-weight:900;color:var(--cyan);}
+  .avg-card .l{font-size:10.5px;color:var(--muted);margin-top:2px;font-weight:600;}
+
+  .mid-section{margin-top:16px;}
+  .full-panel{margin-top:16px;}
+
   @media(max-width:1150px){
-    .grid, .sleep-section{grid-template-columns:1fr;}
+    .grid{grid-template-columns:1fr;}
+  }
+  @media(max-width:640px){
+    body{padding:14px 8px 40px;}
+    .panel{padding:12px;}
+    .stats-row{flex-wrap:wrap;}
+    .stat-card{min-width:45%;}
+    #sleepChart{height:280px !important;}
+    .btn{font-size:12px;padding:8px 12px;}
   }
 </style>
 </head>
@@ -225,37 +201,40 @@
 <div class="wrap">
 
   <div class="header">
-    <div class="title" id="mainTitle">لوحة متابعة العادات والنوم</div>
-    <div class="sub" id="subTitle">—</div>
+    <div class="title">لوحة متابعة العادات والنوم</div>
     <div class="header-controls">
-      <button class="btn" id="settingsBtn">⚙️ الإعدادات (التقويم والتاريخ)</button>
+      <button class="btn" id="settingsBtn">⚙️ الإعدادات (التقويم وبدء فترة)</button>
       <button class="btn primary" id="editBtn">✏️ تحرير العادات</button>
     </div>
     <div class="settings-panel" id="settingsPanel">
-      <h3>إعدادات التقويم</h3>
+      <h3>إعدادات التقويم والفترة</h3>
       <div class="settings-row">
         <label>نوع التقويم:</label>
         <div class="radio-group">
-          <div class="radio-opt" data-cal="gregorian" id="optGregorian">☉ ميلادي</div>
-          <div class="radio-opt" data-cal="hijri" id="optHijri">☾ هجري</div>
+          <div class="radio-opt" id="optGregorian">☉ ميلادي</div>
+          <div class="radio-opt" id="optHijri">☾ هجري</div>
         </div>
       </div>
       <div class="settings-row">
-        <label>تاريخ البداية:</label>
+        <label>بدء فترة تتبع جديدة من تاريخ:</label>
         <input type="date" id="startDateInput">
+        <button class="btn primary small" id="startPeriodBtn">بدء الفترة</button>
       </div>
-      <div class="settings-row">
-        <label>عدد أيام الشهر:</label>
-        <input type="number" id="monthLenInput" min="7" max="31" value="30">
-      </div>
-      <div class="settings-row">
-        <button class="btn primary small" id="saveSettingsBtn">حفظ</button>
+      <div class="settings-note">تُحسب مدة الفترة تلقائيًا من تاريخ البداية حتى نهاية الشهر (حسب التقويم المختار)، وعند انتهائها تبدأ فترة جديدة تلقائيًا، ويمكنك التنقل بين الفترات السابقة.</div>
+      <div class="settings-row" style="margin-top:10px;">
         <button class="btn small" id="closeSettingsBtn">إغلاق</button>
       </div>
+    </div>
+
+    <div class="period-nav">
+      <button class="btn icon" id="prevPeriodBtn">◀</button>
+      <div class="period-label" id="periodLabel">—</div>
+      <button class="btn icon" id="nextPeriodBtn">▶</button>
     </div>
   </div>
 
   <div class="grid">
+    <!-- LEFT COLUMN -->
     <div>
       <div class="stats-row">
         <div class="stat-card check">
@@ -267,24 +246,38 @@
           <div class="label">✗ عدم إنجاز</div>
         </div>
       </div>
+
       <div class="panel">
         <h3>العادات اليومية</h3>
         <ul class="habit-list" id="habitNamesList"></ul>
+        <div id="emptyState" class="empty-state" style="display:none;">لا توجد عادات بعد — اضغطي «تحرير العادات» لإضافة عادتك الأولى</div>
         <div id="addHabitRow" class="add-habit-row" style="display:none;">
           <input type="text" id="newHabitName" placeholder="اسم عادة جديدة">
           <input type="number" id="newHabitGoal" placeholder="الهدف" min="1" max="31" value="30">
           <button class="btn small primary" id="addHabitBtn">+</button>
         </div>
       </div>
+
+      <div class="panel full-panel">
+        <h3>🏆 أكثر العادات التزامًا</h3>
+        <ol class="simple-list top" id="topHabits"></ol>
+      </div>
+
+      <div class="panel full-panel">
+        <h3>📉 أقل العادات التزامًا</h3>
+        <ol class="simple-list bottom" id="bottomHabits"></ol>
+      </div>
     </div>
 
+    <!-- CENTER COLUMN -->
     <div>
       <div class="panel chart-box">
         <h3>📊 التقدم اليومي</h3>
         <canvas id="progressChart"></canvas>
+        <div class="week-legend" id="progressWeekLegend"></div>
       </div>
 
-      <div class="panel" style="margin-top:18px;">
+      <div class="panel mid-section">
         <h3>📝 جدول العادات اليومية</h3>
         <div class="table-scroll">
           <table class="habits" id="habitsTable"></table>
@@ -292,77 +285,61 @@
       </div>
 
       <div class="panel mid-section chart-box">
-        <h3>📈 مستوى الإنجاز خلال الشهر</h3>
+        <h3>📈 مستوى الإنجاز خلال الفترة</h3>
         <canvas id="trendChart"></canvas>
       </div>
     </div>
 
+    <!-- RIGHT COLUMN -->
     <div>
       <div class="panel">
         <h3>🎯 التقدم حسب العادة</h3>
         <table class="progress-list" id="habitProgressTable"></table>
       </div>
 
-      <div class="panel" style="margin-top:18px;">
+      <div class="panel full-panel">
         <h3>📅 التقدم الأسبوعي</h3>
         <table class="weekly-list" id="weeklyTable"></table>
       </div>
     </div>
   </div>
 
-  <div class="sleep-section">
-    <div class="panel">
-      <h3>🏆 أكثر العادات التزامًا</h3>
-      <ol class="simple-list top" id="topHabits"></ol>
+  <div class="panel full-panel chart-box">
+    <h3>💤 مقارنة ساعات النوم بجودة النوم</h3>
+    <canvas id="sleepChart"></canvas>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--w2)"></span> ساعات النوم</span>
+      <span><span class="dot" style="background:var(--w4)"></span> جودة النوم (من ١٠)</span>
     </div>
-
-    <div class="panel chart-box">
-      <h3>💤 مقارنة ساعات النوم بجودة النوم</h3>
-      <canvas id="sleepChart"></canvas>
-      <div class="legend">
-        <span><span class="dot" style="background:var(--w2)"></span> ساعات النوم</span>
-        <span><span class="dot" style="background:var(--w4)"></span> جودة النوم (من ١٠)</span>
-      </div>
-      <div class="avg-row">
-        <div class="avg-card"><div class="v" id="avgSleepHours">0</div><div class="l">معدل ساعات النوم</div></div>
-        <div class="avg-card"><div class="v" id="avgSleepQuality">0</div><div class="l">معدل جودة النوم / ١٠</div></div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h3>📉 أقل العادات التزامًا</h3>
-      <ol class="simple-list bottom" id="bottomHabits"></ol>
+    <div class="avg-row">
+      <div class="avg-card"><div class="v" id="avgSleepHours">0</div><div class="l">معدل ساعات النوم</div></div>
+      <div class="avg-card"><div class="v" id="avgSleepQuality">0</div><div class="l">معدل جودة النوم / ١٠</div></div>
     </div>
   </div>
 
-  <div class="panel" style="margin-top:18px;">
-    <h3>🌙 إدخال بيانات النوم اليومية (الساعات وجودة النوم من ١٠)</h3>
-    <div class="sleep-scroll">
-      <table class="sleep-input-table" id="sleepInputTable"></table>
+  <div class="panel full-panel">
+    <h3>🌙 إدخال بيانات النوم اليومية</h3>
+    <div class="table-scroll">
+      <table class="habits" id="sleepInputTable"></table>
     </div>
   </div>
 
 </div>
 
 <script>
-const STORAGE_KEY = 'habitSleepTrackerState_v1';
+const STORAGE_KEY = 'habitSleepTrackerState_v2';
 
+/* =====================================================================
+   STATE
+===================================================================== */
 function defaultState(){
-  const habits = [
-    {name:"أذكار الصباح", goal:30},
-    {name:"قراءة ورد يومي", goal:28},
-    {name:"الرياضة", goal:20},
-    {name:"شرب الماء بكمية كافية", goal:30},
-    {name:"قراءة فصل من كتاب", goal:22},
-    {name:"الابتعاد عن الشاشة قبل النوم", goal:25},
-    {name:"تحديد أولويات اليوم", goal:30}
-  ];
   return {
-    settings:{ calendarType:'gregorian', startDate: new Date().toISOString().slice(0,10), monthLength: 30 },
-    habits, log:{}, sleepHours:{}, sleepQuality:{}
+    calendarType:'gregorian',
+    nextHabitId:1,
+    habits:[],           // {id, name, goal}
+    periods:[],          // {id, startDate, length, log:{}, sleepHours:{}, sleepQuality:{}}
   };
 }
-
 function loadState(){
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -370,98 +347,168 @@ function loadState(){
   }catch(e){}
   return defaultState();
 }
-function saveState(){
-  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
-}
+function saveState(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
 
 let state = loadState();
 let editMode = false;
+let viewIndex = 0;
 
+/* =====================================================================
+   DATE / PERIOD HELPERS
+===================================================================== */
+function addDaysStr(dateStr, n){
+  const d = new Date(dateStr+'T00:00:00');
+  d.setDate(d.getDate()+n);
+  return d.toISOString().slice(0,10);
+}
+function monthLabelForDate(date, calendarType){
+  const fmt = calendarType==='hijri'
+    ? new Intl.DateTimeFormat('en-u-ca-islamic',{month:'numeric',year:'numeric'})
+    : new Intl.DateTimeFormat('en',{month:'numeric',year:'numeric'});
+  return fmt.format(date);
+}
+function calcPeriodLength(startDateStr, calendarType){
+  let cur = new Date(startDateStr+'T00:00:00');
+  const startLabel = monthLabelForDate(cur, calendarType);
+  let count=0;
+  while(count<31){
+    const label = monthLabelForDate(cur, calendarType);
+    if(label !== startLabel) break;
+    count++;
+    cur.setDate(cur.getDate()+1);
+  }
+  return Math.max(count,1);
+}
+function createPeriod(startDateStr){
+  const length = calcPeriodLength(startDateStr, state.calendarType);
+  state.periods.push({ id:Date.now()+Math.random(), startDate:startDateStr, length, log:{}, sleepHours:{}, sleepQuality:{} });
+}
+function ensureCurrentPeriod(){
+  if(state.periods.length===0){
+    createPeriod(new Date().toISOString().slice(0,10));
+  }
+  let guard=0;
+  while(guard<60){
+    const last = state.periods[state.periods.length-1];
+    const endStr = addDaysStr(last.startDate, last.length-1);
+    const today = new Date(); today.setHours(0,0,0,0);
+    const end = new Date(endStr+'T00:00:00');
+    if(today > end){
+      createPeriod(addDaysStr(last.startDate, last.length));
+      guard++;
+    }else break;
+  }
+}
+function currentPeriod(){ return state.periods[viewIndex]; }
+
+function dateForDay(period, dayIndex){
+  const d = new Date(period.startDate+'T00:00:00');
+  d.setDate(d.getDate() + (dayIndex-1));
+  return d;
+}
+function calFmt(){ return state.calendarType==='hijri' ? 'ar-SA-u-ca-islamic' : 'ar-EG'; }
+function formatDayLabel(period, dayIndex){
+  try{ return new Intl.DateTimeFormat(calFmt(), {day:'numeric'}).format(dateForDay(period,dayIndex)); }
+  catch(e){ return String(dayIndex); }
+}
+function formatPeriodRange(period){
+  const start = dateForDay(period,1);
+  const end = dateForDay(period, period.length);
+  const opts = {day:'numeric', month:'long', year:'numeric'};
+  try{
+    const s = new Intl.DateTimeFormat(calFmt(), opts).format(start);
+    const e = new Intl.DateTimeFormat(calFmt(), opts).format(end);
+    return s + '  —  ' + e;
+  }catch(e){ return period.startDate; }
+}
+
+/* =====================================================================
+   WEEK HELPERS
+===================================================================== */
 const weekColors = ["--w1","--w2","--w3","--w4","--w5"];
 function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
 function weekOfDay(day){ return Math.min(4, Math.floor((day-1)/7)); }
 
-function dateForDay(dayIndex){
-  const start = new Date(state.settings.startDate + 'T00:00:00');
-  const d = new Date(start);
-  d.setDate(d.getDate() + (dayIndex-1));
-  return d;
-}
-function formatDayLabel(dayIndex){
-  const d = dateForDay(dayIndex);
-  if(state.settings.calendarType === 'hijri'){
-    try{ return new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {day:'numeric'}).format(d); }
-    catch(e){ return String(dayIndex); }
-  }
-  return String(d.getDate());
-}
-function formatMonthTitle(){
-  const d = dateForDay(1);
-  try{
-    if(state.settings.calendarType === 'hijri'){
-      return new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {month:'long', year:'numeric'}).format(d);
-    }
-    return new Intl.DateTimeFormat('ar-EG', {month:'long', year:'numeric'}).format(d);
-  }catch(e){ return ''; }
+/* =====================================================================
+   LOG / SLEEP DATA (per viewed period)
+===================================================================== */
+function habitKey(habitId, day){ return habitId+'_'+day; }
+function isDone(period, habitId, day){ return !!period.log[habitKey(habitId,day)]; }
+function toggleDone(habitId, day){
+  const period = currentPeriod();
+  const k = habitKey(habitId,day);
+  period.log[k] = !period.log[k];
+  saveState(); renderAll();
 }
 
-function habitKey(hi, day){ return hi+'_'+day; }
-function isDone(hi, day){ return !!state.log[habitKey(hi,day)]; }
-function toggleDone(hi, day){
-  const k = habitKey(hi,day);
-  state.log[k] = !state.log[k];
-  saveState();
-  renderAll();
-}
-
-function calcDailyProgress(){
-  const n = state.settings.monthLength;
-  const arr = [];
-  for(let d=1; d<=n; d++){
+/* =====================================================================
+   CALCULATIONS
+===================================================================== */
+function calcDailyProgress(period){
+  const arr=[];
+  for(let d=1; d<=period.length; d++){
     let done=0;
-    state.habits.forEach((h,hi)=>{ if(isDone(hi,d)) done++; });
+    state.habits.forEach(h=>{ if(isDone(period,h.id,d)) done++; });
     arr.push(state.habits.length ? Math.round((done/state.habits.length)*100) : 0);
   }
   return arr;
 }
-function calcTotals(){
-  let c=0, x=0;
-  const n = state.settings.monthLength;
-  state.habits.forEach((h,hi)=>{
-    for(let d=1; d<=n; d++){ if(isDone(hi,d)) c++; else x++; }
+function calcTotals(period){
+  let c=0,x=0;
+  state.habits.forEach(h=>{
+    for(let d=1; d<=period.length; d++){ if(isDone(period,h.id,d)) c++; else x++; }
   });
   return {check:c, cross:x};
 }
-function calcHabitProgress(){
-  const n = state.settings.monthLength;
-  return state.habits.map((h,hi)=>{
+function calcHabitProgress(period){
+  return state.habits.map(h=>{
     let done=0;
-    for(let d=1; d<=n; d++){ if(isDone(hi,d)) done++; }
-    const pct = Math.round((done/n)*100);
-    return {name:h.name, goal:h.goal, done, pct};
+    for(let d=1; d<=period.length; d++){ if(isDone(period,h.id,d)) done++; }
+    const pct = period.length ? Math.round((done/period.length)*100) : 0;
+    return {id:h.id, name:h.name, goal:h.goal, done, pct};
   });
 }
-function calcWeekly(dailyProgress){
-  const n = state.settings.monthLength;
+function calcWeekly(period, dailyProgress){
   const weeks=[0,0,0,0,0], counts=[0,0,0,0,0];
-  for(let d=1; d<=n; d++){ const w=weekOfDay(d); weeks[w]+=dailyProgress[d-1]; counts[w]++; }
+  for(let d=1; d<=period.length; d++){ const w=weekOfDay(d); weeks[w]+=dailyProgress[d-1]; counts[w]++; }
   return weeks.map((sum,i)=> counts[i] ? Math.round(sum/counts[i]) : 0);
 }
-function calcSleepAverages(){
-  const n = state.settings.monthLength;
+function calcSleepAverages(period){
   let hSum=0,hCount=0,qSum=0,qCount=0;
-  for(let d=1; d<=n; d++){
-    const h=state.sleepHours[d], q=state.sleepQuality[d];
+  for(let d=1; d<=period.length; d++){
+    const h=period.sleepHours[d], q=period.sleepQuality[d];
     if(h!==undefined && h!==null && h!==''){ hSum+=Number(h); hCount++; }
     if(q!==undefined && q!==null && q!==''){ qSum+=Number(q); qCount++; }
   }
   return { avgHours: hCount ? (hSum/hCount).toFixed(1) : '0', avgQuality: qCount ? (qSum/qCount).toFixed(1) : '0' };
 }
 
+/* =====================================================================
+   SHARED: week/day header row for tables
+===================================================================== */
+function buildWeekDayThead(period){
+  const spans=[0,0,0,0,0];
+  for(let d=1; d<=period.length; d++){ spans[weekOfDay(d)]++; }
+  let html = '<thead><tr class="week-row"><th></th>';
+  spans.forEach((span,i)=>{
+    if(span>0){
+      const color = cssVar(weekColors[i]);
+      html += `<th colspan="${span}" style="background:${color}33;color:${color}">أسبوع ${['١','٢','٣','٤','٥'][i]}</th>`;
+    }
+  });
+  html += '</tr><tr class="day-row"><th></th>';
+  for(let d=1; d<=period.length; d++){ html += `<th>${formatDayLabel(period,d)}</th>`; }
+  html += '</tr></thead>';
+  return html;
+}
+
+/* =====================================================================
+   CHARTS
+===================================================================== */
 let progressChartInst=null, trendChartInst=null, sleepChartInst=null;
 
-function renderProgressChart(dailyProgress){
-  const labels = dailyProgress.map((_,i)=>formatDayLabel(i+1));
+function renderProgressChart(period, dailyProgress){
+  const labels = dailyProgress.map((_,i)=>formatDayLabel(period,i+1));
   const colors = dailyProgress.map((_,i)=> cssVar(weekColors[weekOfDay(i+1)]));
   const ctx = document.getElementById('progressChart');
   if(progressChartInst) progressChartInst.destroy();
@@ -477,9 +524,13 @@ function renderProgressChart(dailyProgress){
       }
     }
   });
+  const legend = document.getElementById('progressWeekLegend');
+  const spans=[0,0,0,0,0];
+  for(let d=1; d<=period.length; d++){ spans[weekOfDay(d)]++; }
+  legend.innerHTML = spans.map((s,i)=> s>0 ? `<span><span class="dot" style="background:${cssVar(weekColors[i])}"></span>أسبوع ${['١','٢','٣','٤','٥'][i]}</span>` : '').join('');
 }
-function renderTrendChart(dailyProgress){
-  const labels = dailyProgress.map((_,i)=>formatDayLabel(i+1));
+function renderTrendChart(period, dailyProgress){
+  const labels = dailyProgress.map((_,i)=>formatDayLabel(period,i+1));
   const ctx = document.getElementById('trendChart');
   if(trendChartInst) trendChartInst.destroy();
   trendChartInst = new Chart(ctx, {
@@ -498,13 +549,12 @@ function renderTrendChart(dailyProgress){
     }
   });
 }
-function renderSleepChart(){
-  const n = state.settings.monthLength;
+function renderSleepChart(period){
   const labels=[], hours=[], quality=[];
-  for(let d=1; d<=n; d++){
-    labels.push(formatDayLabel(d));
-    hours.push(state.sleepHours[d]!==undefined ? Number(state.sleepHours[d]) : null);
-    quality.push(state.sleepQuality[d]!==undefined ? Number(state.sleepQuality[d]) : null);
+  for(let d=1; d<=period.length; d++){
+    labels.push(formatDayLabel(period,d));
+    hours.push(period.sleepHours[d]!==undefined ? Number(period.sleepHours[d]) : null);
+    quality.push(period.sleepQuality[d]!==undefined ? Number(period.sleepQuality[d]) : null);
   }
   const ctx = document.getElementById('sleepChart');
   if(sleepChartInst) sleepChartInst.destroy();
@@ -512,9 +562,9 @@ function renderSleepChart(){
     type:'line',
     data:{ labels, datasets:[
       { label:'ساعات النوم', data:hours, borderColor:cssVar('--w2'), backgroundColor:'transparent',
-        borderWidth:2.5, pointRadius:0, tension:0.45, cubicInterpolationMode:'monotone', spanGaps:true, yAxisID:'y' },
+        borderWidth:3, pointRadius:0, tension:0.45, cubicInterpolationMode:'monotone', spanGaps:true, yAxisID:'y' },
       { label:'جودة النوم', data:quality, borderColor:cssVar('--w4'), backgroundColor:'transparent',
-        borderWidth:2.5, pointRadius:0, tension:0.45, cubicInterpolationMode:'monotone', spanGaps:true, yAxisID:'y1' }
+        borderWidth:3, pointRadius:0, tension:0.45, cubicInterpolationMode:'monotone', spanGaps:true, yAxisID:'y1' }
     ]},
     options:{
       maintainAspectRatio:false,
@@ -528,16 +578,19 @@ function renderSleepChart(){
   });
 }
 
-function renderHeader(){
-  document.getElementById('subTitle').textContent = formatMonthTitle() +
-    (state.settings.calendarType === 'hijri' ? ' (هجري)' : ' (ميلادي)');
-  document.getElementById('optGregorian').classList.toggle('active', state.settings.calendarType==='gregorian');
-  document.getElementById('optHijri').classList.toggle('active', state.settings.calendarType==='hijri');
-  document.getElementById('startDateInput').value = state.settings.startDate;
-  document.getElementById('monthLenInput').value = state.settings.monthLength;
+/* =====================================================================
+   DOM RENDER
+===================================================================== */
+function renderPeriodNav(){
+  const period = currentPeriod();
+  document.getElementById('periodLabel').innerHTML =
+    formatPeriodRange(period) +
+    (viewIndex === state.periods.length-1 ? '<span class="period-badge">الفترة الحالية</span>' : '<span class="period-badge">فترة سابقة</span>');
+  document.getElementById('prevPeriodBtn').disabled = viewIndex<=0;
+  document.getElementById('nextPeriodBtn').disabled = viewIndex>=state.periods.length-1;
 }
-function renderStats(){
-  const t = calcTotals();
+function renderStats(period){
+  const t = calcTotals(period);
   document.getElementById('totalCheck').textContent = t.check;
   document.getElementById('totalCross').textContent = t.cross;
 }
@@ -545,14 +598,15 @@ function renderHabitNamesList(){
   const list = document.getElementById('habitNamesList');
   list.className = 'habit-list' + (editMode ? ' edit' : '');
   list.innerHTML = '';
+  document.getElementById('emptyState').style.display = state.habits.length===0 ? 'block' : 'none';
   state.habits.forEach((h,i)=>{
     const li = document.createElement('li');
     if(editMode){
       li.innerHTML = `
         <span class="idx">${i+1}</span>
-        <input type="text" data-hi="${i}" class="habit-name-input" value="${h.name}">
-        <input type="number" data-hi="${i}" class="habit-goal-input" value="${h.goal}" min="1" max="${state.settings.monthLength}">
-        <button class="btn small danger habit-del-btn" data-hi="${i}">✕</button>
+        <input type="text" data-id="${h.id}" class="habit-name-input" value="${h.name}">
+        <input type="number" data-id="${h.id}" class="habit-goal-input" value="${h.goal}" min="1" max="31">
+        <button class="btn small danger habit-del-btn" data-id="${h.id}">✕</button>
       `;
     }else{
       li.innerHTML = `<span class="idx">${i+1}</span><span>${h.name}</span>`;
@@ -561,40 +615,25 @@ function renderHabitNamesList(){
   });
   document.getElementById('addHabitRow').style.display = editMode ? 'flex' : 'none';
 }
-function renderHabitsTable(){
-  const n = state.settings.monthLength;
+function renderHabitsTable(period){
   const table = document.getElementById('habitsTable');
-  const spans=[0,0,0,0,0];
-  for(let d=1; d<=n; d++){ spans[weekOfDay(d)]++; }
-  let thead = '<thead><tr class="week-row"><th></th>';
-  spans.forEach((span,i)=>{
-    if(span>0){
-      const color = cssVar(weekColors[i]);
-      thead += `<th colspan="${span}" style="background:${color}33;color:${color}">أسبوع ${['١','٢','٣','٤','٥'][i]}</th>`;
+  let html = buildWeekDayThead(period) + '<tbody>';
+  state.habits.forEach(h=>{
+    html += `<tr><td class="row-name">${h.name}</td>`;
+    for(let d=1; d<=period.length; d++){
+      const done = isDone(period,h.id,d);
+      html += `<td><span class="cell-mark ${done?'yes':'no'}" data-id="${h.id}" data-day="${d}">${done?'✓':'✕'}</span></td>`;
     }
+    html += '</tr>';
   });
-  thead += '</tr><tr class="day-row"><th></th>';
-  for(let d=1; d<=n; d++){ thead += `<th>${formatDayLabel(d)}</th>`; }
-  thead += '</tr></thead>';
-
-  let tbody = '<tbody>';
-  state.habits.forEach((h, hi)=>{
-    tbody += `<tr><td class="habit-name">${h.name}</td>`;
-    for(let d=1; d<=n; d++){
-      const done = isDone(hi,d);
-      tbody += `<td><span class="cell-mark ${done?'yes':'no'}" data-hi="${hi}" data-day="${d}">${done?'✓':'✕'}</span></td>`;
-    }
-    tbody += '</tr>';
-  });
-  tbody += '</tbody>';
-  table.innerHTML = thead + tbody;
-
+  html += '</tbody>';
+  table.innerHTML = html;
   table.querySelectorAll('.cell-mark').forEach(el=>{
-    el.addEventListener('click', ()=> toggleDone(Number(el.dataset.hi), Number(el.dataset.day)));
+    el.addEventListener('click', ()=> toggleDone(el.dataset.id, Number(el.dataset.day)));
   });
 }
-function renderHabitProgressTable(){
-  const data = calcHabitProgress();
+function renderHabitProgressTable(period){
+  const data = calcHabitProgress(period);
   const table = document.getElementById('habitProgressTable');
   let html = '<thead><tr><th>العادة</th><th>التقدم</th><th>الهدف</th></tr></thead><tbody>';
   data.forEach(h=>{
@@ -603,22 +642,21 @@ function renderHabitProgressTable(){
       <td style="white-space:nowrap;">${h.name}</td>
       <td style="width:45%">
         <div class="bar-track"><div class="bar-fill" style="width:${h.pct}%;background:${barColor}"></div></div>
-        <div style="font-size:10.5px;color:var(--muted);margin-top:2px;">${h.pct}% (${h.done}/${state.settings.monthLength})</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px;">${h.pct}% (${h.done}/${period.length})</div>
       </td>
       <td><span class="goal-tag">🎯 ${h.goal}</span></td>
     </tr>`;
   });
   html += '</tbody>';
-  table.innerHTML = html;
+  table.innerHTML = html || '';
 }
-function renderWeeklyTable(dailyProgress){
-  const weekly = calcWeekly(dailyProgress);
-  const n = state.settings.monthLength;
+function renderWeeklyTable(period, dailyProgress){
+  const weekly = calcWeekly(period, dailyProgress);
   const table = document.getElementById('weeklyTable');
   let html = '';
   weekly.forEach((pct,i)=>{
     let hasDay=false;
-    for(let d=1; d<=n; d++){ if(weekOfDay(d)===i){ hasDay=true; break; } }
+    for(let d=1; d<=period.length; d++){ if(weekOfDay(d)===i){ hasDay=true; break; } }
     if(!hasDay) return;
     const color = cssVar(weekColors[i]);
     html += `<tr>
@@ -629,12 +667,17 @@ function renderWeeklyTable(dailyProgress){
   });
   table.innerHTML = html;
 }
-function renderTopBottom(){
-  const data = calcHabitProgress();
+function renderTopBottom(period){
+  const data = calcHabitProgress(period);
   const sorted = [...data].sort((a,b)=>b.pct-a.pct);
   const top = document.getElementById('topHabits');
   const bottom = document.getElementById('bottomHabits');
   top.innerHTML=''; bottom.innerHTML='';
+  if(sorted.length===0){
+    top.innerHTML = '<li style="border:none;color:var(--muted);">لا توجد بيانات بعد</li>';
+    bottom.innerHTML = '<li style="border:none;color:var(--muted);">لا توجد بيانات بعد</li>';
+    return;
+  }
   sorted.slice(0,5).forEach((h,i)=>{
     const li = document.createElement('li');
     li.innerHTML = `<span class="idx">${i+1}</span><span>${h.name}</span>`;
@@ -646,84 +689,94 @@ function renderTopBottom(){
     bottom.appendChild(li);
   });
 }
-function renderSleepAverages(){
-  const a = calcSleepAverages();
+function renderSleepAverages(period){
+  const a = calcSleepAverages(period);
   document.getElementById('avgSleepHours').textContent = a.avgHours;
   document.getElementById('avgSleepQuality').textContent = a.avgQuality;
 }
-function renderSleepInputTable(){
-  const n = state.settings.monthLength;
+function renderSleepInputTable(period){
   const table = document.getElementById('sleepInputTable');
-  let html = '<thead><tr><th>اليوم</th><th>ساعات النوم</th><th>جودة النوم (من ١٠)</th></tr></thead><tbody>';
-  for(let d=1; d<=n; d++){
-    const hVal = state.sleepHours[d] !== undefined ? state.sleepHours[d] : '';
-    const qVal = state.sleepQuality[d] !== undefined ? state.sleepQuality[d] : '';
-    html += `<tr>
-      <td style="font-weight:700;color:#c8d0e0;">${formatDayLabel(d)}</td>
-      <td><input type="number" step="0.5" min="0" max="14" data-day="${d}" class="sleep-hours-input" value="${hVal}"></td>
-      <td><input type="number" step="1" min="0" max="10" data-day="${d}" class="sleep-quality-input" value="${qVal}"></td>
-    </tr>`;
+  let html = buildWeekDayThead(period) + '<tbody>';
+  html += '<tr><td class="row-name">🕒 ساعات النوم</td>';
+  for(let d=1; d<=period.length; d++){
+    const v = period.sleepHours[d] !== undefined ? period.sleepHours[d] : '';
+    html += `<td class="sleep-cell"><input type="number" step="0.5" min="0" max="14" data-day="${d}" class="sleep-hours-input" value="${v}"></td>`;
   }
-  html += '</tbody>';
+  html += '</tr><tr><td class="row-name">⭐ جودة النوم /١٠</td>';
+  for(let d=1; d<=period.length; d++){
+    const v = period.sleepQuality[d] !== undefined ? period.sleepQuality[d] : '';
+    html += `<td class="sleep-cell"><input type="number" step="1" min="0" max="10" data-day="${d}" class="sleep-quality-input" value="${v}"></td>`;
+  }
+  html += '</tr></tbody>';
   table.innerHTML = html;
 
   table.querySelectorAll('.sleep-hours-input').forEach(inp=>{
     inp.addEventListener('change', ()=>{
       const d = Number(inp.dataset.day);
-      state.sleepHours[d] = inp.value === '' ? undefined : Number(inp.value);
-      saveState(); renderSleepChart(); renderSleepAverages();
+      period.sleepHours[d] = inp.value === '' ? undefined : Number(inp.value);
+      saveState(); renderSleepChart(period); renderSleepAverages(period);
     });
   });
   table.querySelectorAll('.sleep-quality-input').forEach(inp=>{
     inp.addEventListener('change', ()=>{
       const d = Number(inp.dataset.day);
-      state.sleepQuality[d] = inp.value === '' ? undefined : Number(inp.value);
-      saveState(); renderSleepChart(); renderSleepAverages();
+      period.sleepQuality[d] = inp.value === '' ? undefined : Number(inp.value);
+      saveState(); renderSleepChart(period); renderSleepAverages(period);
     });
   });
 }
 function bindEditableHabitInputs(){
   document.querySelectorAll('.habit-name-input').forEach(inp=>{
     inp.addEventListener('change', ()=>{
-      const hi = Number(inp.dataset.hi);
-      state.habits[hi].name = inp.value;
-      saveState(); renderAll();
+      const h = state.habits.find(x=>String(x.id)===inp.dataset.id);
+      if(h){ h.name = inp.value; saveState(); renderAll(); }
     });
   });
   document.querySelectorAll('.habit-goal-input').forEach(inp=>{
     inp.addEventListener('change', ()=>{
-      const hi = Number(inp.dataset.hi);
-      state.habits[hi].goal = Number(inp.value) || 1;
-      saveState(); renderAll();
+      const h = state.habits.find(x=>String(x.id)===inp.dataset.id);
+      if(h){ h.goal = Number(inp.value) || 1; saveState(); renderAll(); }
     });
   });
   document.querySelectorAll('.habit-del-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      const hi = Number(btn.dataset.hi);
       if(confirm('هل تريدين حذف هذه العادة؟')){
-        state.habits.splice(hi,1);
+        state.habits = state.habits.filter(x=>String(x.id)!==btn.dataset.id);
         saveState(); renderAll();
       }
     });
   });
 }
+
 function renderAll(){
-  renderHeader();
-  renderStats();
+  ensureCurrentPeriod();
+  if(viewIndex > state.periods.length-1) viewIndex = state.periods.length-1;
+  const period = currentPeriod();
+
+  renderPeriodNav();
+  renderStats(period);
   renderHabitNamesList();
-  const dailyProgress = calcDailyProgress();
-  renderProgressChart(dailyProgress);
-  renderHabitsTable();
-  renderTrendChart(dailyProgress);
-  renderHabitProgressTable();
-  renderWeeklyTable(dailyProgress);
-  renderTopBottom();
-  renderSleepChart();
-  renderSleepAverages();
-  renderSleepInputTable();
+
+  const dailyProgress = calcDailyProgress(period);
+  renderProgressChart(period, dailyProgress);
+  renderHabitsTable(period);
+  renderTrendChart(period, dailyProgress);
+  renderHabitProgressTable(period);
+  renderWeeklyTable(period, dailyProgress);
+  renderTopBottom(period);
+  renderSleepChart(period);
+  renderSleepAverages(period);
+  renderSleepInputTable(period);
   bindEditableHabitInputs();
+
+  document.getElementById('optGregorian').classList.toggle('active', state.calendarType==='gregorian');
+  document.getElementById('optHijri').classList.toggle('active', state.calendarType==='hijri');
+  document.getElementById('startDateInput').value = new Date().toISOString().slice(0,10);
 }
 
+/* =====================================================================
+   EVENTS
+===================================================================== */
 document.getElementById('settingsBtn').addEventListener('click', ()=>{
   document.getElementById('settingsPanel').classList.toggle('open');
 });
@@ -731,16 +784,24 @@ document.getElementById('closeSettingsBtn').addEventListener('click', ()=>{
   document.getElementById('settingsPanel').classList.remove('open');
 });
 document.getElementById('optGregorian').addEventListener('click', ()=>{
-  state.settings.calendarType='gregorian'; renderHeader();
+  state.calendarType='gregorian'; saveState(); renderAll();
 });
 document.getElementById('optHijri').addEventListener('click', ()=>{
-  state.settings.calendarType='hijri'; renderHeader();
+  state.calendarType='hijri'; saveState(); renderAll();
 });
-document.getElementById('saveSettingsBtn').addEventListener('click', ()=>{
-  state.settings.startDate = document.getElementById('startDateInput').value || state.settings.startDate;
-  state.settings.monthLength = Math.max(7, Math.min(31, Number(document.getElementById('monthLenInput').value) || 30));
+document.getElementById('startPeriodBtn').addEventListener('click', ()=>{
+  const val = document.getElementById('startDateInput').value;
+  if(!val) return;
+  createPeriod(val);
+  viewIndex = state.periods.length-1;
   saveState(); renderAll();
   document.getElementById('settingsPanel').classList.remove('open');
+});
+document.getElementById('prevPeriodBtn').addEventListener('click', ()=>{
+  if(viewIndex>0){ viewIndex--; renderAll(); }
+});
+document.getElementById('nextPeriodBtn').addEventListener('click', ()=>{
+  if(viewIndex<state.periods.length-1){ viewIndex++; renderAll(); }
 });
 document.getElementById('editBtn').addEventListener('click', ()=>{
   editMode = !editMode;
@@ -752,12 +813,19 @@ document.getElementById('addHabitBtn').addEventListener('click', ()=>{
   const goalInp = document.getElementById('newHabitGoal');
   const name = nameInp.value.trim();
   if(!name) return;
-  const goal = Number(goalInp.value) || state.settings.monthLength;
-  state.habits.push({name, goal});
+  const period = currentPeriod();
+  const goal = Number(goalInp.value) || period.length;
+  state.habits.push({ id: state.nextHabitId++, name, goal });
   nameInp.value=''; goalInp.value=30;
   saveState(); renderAll();
 });
 
+/* =====================================================================
+   INIT
+===================================================================== */
+ensureCurrentPeriod();
+viewIndex = state.periods.length-1;
+saveState();
 renderAll();
 </script>
 </body>
