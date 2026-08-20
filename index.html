@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -27,6 +27,25 @@
     --gold:#e6c15a;
     --radius:16px;
   }
+  [data-theme="light"]{
+    --bg:#eef1f8;
+    --panel:#ffffff;
+    --panel-2:#f3f5fa;
+    --line:#dde3ee;
+    --text:#1b2436;
+    --muted:#6b7690;
+  }
+  [data-theme="light"] body::before{
+    background:
+      radial-gradient(900px 500px at 15% -8%, #dfe7fb 0%, transparent 60%),
+      radial-gradient(900px 500px at 85% 0%, #eef2fb 0%, transparent 55%);
+  }
+  [data-theme="light"] .header .title{
+    background:linear-gradient(90deg,#3d5ce0,#c85fa0);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  [data-theme="light"] .bar-track{background:#e3e8f2;}
+  [data-theme="light"] .cell-mark.no{background:rgba(240,97,107,.08);}
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   html{background:var(--bg);}
@@ -73,11 +92,18 @@
   .btn:disabled{opacity:.35;cursor:default;}
   .btn:disabled:hover{border-color:var(--line);color:var(--text);}
 
+  .settings-backdrop{
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:40;
+  }
+  .settings-backdrop.open{display:block;}
   .settings-panel{
-    max-width:640px;margin:14px auto 0;
+    max-width:640px; width:92%;
+    position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+    max-height:86vh; overflow-y:auto;
     background:linear-gradient(180deg,var(--panel),var(--panel-2));
     border:1px solid var(--line);border-radius:var(--radius);
-    padding:18px;display:none;
+    padding:18px; display:none; z-index:41;
+    box-shadow:0 20px 60px rgba(0,0,0,.5);
   }
   .settings-panel.open{display:block;}
   .settings-panel h3{font-size:13px;color:var(--muted);margin-bottom:12px;}
@@ -97,6 +123,13 @@
   input:focus, select:focus{outline:2px solid var(--cyan);outline-offset:1px;}
   select{cursor:pointer;}
   .settings-note{font-size:11.5px;color:var(--muted);margin-top:4px;}
+  .periods-list{max-height:220px;overflow-y:auto;border:1px solid var(--line);border-radius:10px;padding:6px;}
+  .period-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:6px 4px;border-bottom:1px solid var(--line);font-size:12px;}
+  .period-row:last-child{border-bottom:none;}
+  .period-row .idx{color:var(--muted);min-width:18px;font-weight:700;}
+  .period-row input[type="date"]{font-size:12px;padding:5px 6px;}
+  .period-row input[type="number"]{width:56px;font-size:12px;padding:5px 6px;}
+  .period-row .cur-tag{font-size:10px;color:var(--cyan);font-weight:700;}
 
   /* period nav */
   .period-nav{
@@ -160,7 +193,7 @@
   .cell-mark:hover{transform:scale(1.12);}
   .cell-mark.yes{background:rgba(63,191,127,.2);color:var(--check);border-color:rgba(63,191,127,.55);}
   .cell-mark.no{background:rgba(240,97,107,.12);color:var(--cross);border-color:rgba(240,97,107,.35);}
-  .sleep-cell input{width:54px;text-align:center;padding:4px 3px;font-size:16px;}
+  .sleep-cell select{width:60px;text-align:center;padding:4px 2px;font-size:12px;border-radius:6px;}
 
   .progress-list{width:100%;border-collapse:collapse;font-size:12px;}
   .progress-list th{color:var(--muted);text-align:right;font-weight:700;padding:5px 3px;font-size:10.5px;}
@@ -213,9 +246,11 @@
   <div class="header">
     <div class="title">لوحة متابعة العادات والنوم</div>
     <div class="header-controls">
-      <button class="btn" id="settingsBtn">⚙️ الإعدادات (التقويم وبدء فترة)</button>
+      <button class="btn" id="settingsBtn">⚙️ الإعدادات (التقويم والفترات)</button>
       <button class="btn primary" id="editBtn">✏️ تحرير العادات</button>
+      <button class="btn" id="themeToggleBtn">☀️ الوضع النهاري</button>
     </div>
+    <div class="settings-backdrop" id="settingsBackdrop"></div>
     <div class="settings-panel" id="settingsPanel">
       <h3>إعدادات التقويم والفترة</h3>
       <div class="settings-row">
@@ -238,7 +273,15 @@
       <div class="settings-row">
         <button class="btn primary small" id="startPeriodBtn">بدء الفترة</button>
       </div>
-      <div class="settings-note">تُحسب مدة الفترة تلقائيًا من تاريخ البداية حتى نهاية الشهر (حسب التقويم المختار)، وعند انتهائها تبدأ فترة جديدة تلقائيًا، ويمكنك التنقل بين الفترات السابقة.</div>
+      <div class="settings-row">
+        <label>مدة المتابعة (بالأيام) — اختياري:</label>
+        <input type="number" id="customLengthInput" min="1" max="90" placeholder="مثال: 19">
+      </div>
+      <div class="settings-note">اتركي الحقل فارغًا لاستخدام ما تبقى من الشهر تلقائيًا (حسب التقويم المختار)، أو حددي عددًا مثل ١٩ أو ١٧ يومًا لتُستخدم هذه المدة لهذه الفترة والفترات القادمة تلقائيًا. عند انتهاء أي فترة تبدأ فترة جديدة تلقائيًا، ويمكنك التنقل بين الفترات السابقة بالأسهم.</div>
+
+      <h3 style="margin-top:16px;">إدارة الفترات المسجلة</h3>
+      <div class="periods-list" id="periodsManageList"></div>
+
       <div class="settings-row" style="margin-top:10px;">
         <button class="btn small" id="closeSettingsBtn">إغلاق</button>
       </div>
@@ -353,15 +396,16 @@ const STORAGE_KEY = 'habitSleepTrackerState_v2';
 function defaultState(){
   return {
     calendarType:'gregorian',
+    theme:'dark',
     nextHabitId:1,
     habits:[],           // {id, name, goal}
-    periods:[],          // {id, startDate, length, log:{}, sleepHours:{}, sleepQuality:{}}
+    periods:[],          // {id, startDate, length, isCustomLength, log:{}, sleepHours:{}, sleepQuality:{}}
   };
 }
 function loadState(){
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw) return JSON.parse(raw);
+    if(raw){ const s = JSON.parse(raw); if(!s.theme) s.theme='dark'; return s; }
   }catch(e){}
   return defaultState();
 }
@@ -424,10 +468,11 @@ function jdToHijri(jd){
 function gregorianToHijri(date){ return jdToHijri(gregorianToJd(date)); }
 function hijriToGregorianDate(hy, hm, hd){ return jdToGregorian(hijriToJd(hy, hm, hd)); }
 function monthLabelForDate(date, calendarType){
-  const fmt = calendarType==='hijri'
-    ? new Intl.DateTimeFormat('en-u-ca-islamic',{month:'numeric',year:'numeric'})
-    : new Intl.DateTimeFormat('en',{month:'numeric',year:'numeric'});
-  return fmt.format(date);
+  if(calendarType==='hijri'){
+    const h = gregorianToHijri(date);
+    return h.hy+'-'+h.hm;
+  }
+  return date.getFullYear()+'-'+(date.getMonth()+1);
 }
 function calcPeriodLength(startDateStr, calendarType){
   let cur = new Date(startDateStr+'T00:00:00');
@@ -441,9 +486,10 @@ function calcPeriodLength(startDateStr, calendarType){
   }
   return Math.max(count,1);
 }
-function createPeriod(startDateStr){
-  const length = calcPeriodLength(startDateStr, state.calendarType);
-  state.periods.push({ id:Date.now()+Math.random(), startDate:startDateStr, length, log:{}, sleepHours:{}, sleepQuality:{} });
+function createPeriod(startDateStr, customLength){
+  const isCustom = !!(customLength && customLength>0);
+  const length = isCustom ? customLength : calcPeriodLength(startDateStr, state.calendarType);
+  state.periods.push({ id:Date.now()+Math.random(), startDate:startDateStr, length, isCustomLength:isCustom, log:{}, sleepHours:{}, sleepQuality:{} });
 }
 function ensureCurrentPeriod(){
   if(state.periods.length===0){
@@ -456,7 +502,7 @@ function ensureCurrentPeriod(){
     const today = new Date(); today.setHours(0,0,0,0);
     const end = new Date(endStr+'T00:00:00');
     if(today > end){
-      createPeriod(addDaysStr(last.startDate, last.length));
+      createPeriod(addDaysStr(last.startDate, last.length), last.isCustomLength ? last.length : undefined);
       guard++;
     }else break;
   }
@@ -468,14 +514,26 @@ function dateForDay(period, dayIndex){
   d.setDate(d.getDate() + (dayIndex-1));
   return d;
 }
-function calFmt(){ return state.calendarType==='hijri' ? 'ar-SA-u-ca-islamic' : 'ar-EG'; }
+function calFmt(){ return 'ar-EG'; }
 function formatDayLabel(period, dayIndex){
-  try{ return new Intl.DateTimeFormat(calFmt(), {day:'numeric'}).format(dateForDay(period,dayIndex)); }
+  const date = dateForDay(period,dayIndex);
+  if(state.calendarType==='hijri'){
+    const h = gregorianToHijri(date);
+    return String(h.hd);
+  }
+  try{ return new Intl.DateTimeFormat(calFmt(), {day:'numeric'}).format(date); }
   catch(e){ return String(dayIndex); }
 }
 function formatPeriodRange(period){
   const start = dateForDay(period,1);
   const end = dateForDay(period, period.length);
+  if(state.calendarType==='hijri'){
+    const hs = gregorianToHijri(start);
+    const he = gregorianToHijri(end);
+    const sLabel = `${hs.hd} ${HIJRI_MONTHS[hs.hm-1]} ${hs.hy}هـ`;
+    const eLabel = `${he.hd} ${HIJRI_MONTHS[he.hm-1]} ${he.hy}هـ`;
+    return sLabel + '  —  ' + eLabel;
+  }
   const opts = {day:'numeric', month:'long', year:'numeric'};
   try{
     const s = new Intl.DateTimeFormat(calFmt(), opts).format(start);
@@ -646,7 +704,7 @@ function renderSleepChart(period){
 function renderPeriodNav(){
   const period = currentPeriod();
   document.getElementById('periodLabel').innerHTML =
-    formatPeriodRange(period) +
+    formatPeriodRange(period) + `  •  المدة: ${period.length} يوم` +
     (viewIndex === state.periods.length-1 ? '<span class="period-badge">الفترة الحالية</span>' : '<span class="period-badge">فترة سابقة</span>');
   document.getElementById('prevPeriodBtn').disabled = viewIndex<=0;
   document.getElementById('nextPeriodBtn').disabled = viewIndex>=state.periods.length-1;
@@ -756,18 +814,33 @@ function renderSleepAverages(period){
   document.getElementById('avgSleepHours').textContent = a.avgHours;
   document.getElementById('avgSleepQuality').textContent = a.avgQuality;
 }
+function buildHourOptions(selected){
+  let html = `<option value="" ${selected===''?'selected':''}>—</option>`;
+  for(let v=0; v<=12; v+=0.5){
+    const val = (Math.round(v*2)/2).toString();
+    html += `<option value="${val}" ${String(selected)===val?'selected':''}>${val}</option>`;
+  }
+  return html;
+}
+function buildQualityOptions(selected){
+  let html = `<option value="" ${selected===''?'selected':''}>—</option>`;
+  for(let v=0; v<=10; v++){
+    html += `<option value="${v}" ${String(selected)===String(v)?'selected':''}>${v}</option>`;
+  }
+  return html;
+}
 function renderSleepInputTable(period){
   const table = document.getElementById('sleepInputTable');
   let html = buildWeekDayThead(period) + '<tbody>';
   html += '<tr><td class="row-name">🕒 ساعات النوم</td>';
   for(let d=1; d<=period.length; d++){
     const v = period.sleepHours[d] !== undefined ? period.sleepHours[d] : '';
-    html += `<td class="sleep-cell"><input type="number" step="0.5" min="0" max="14" data-day="${d}" class="sleep-hours-input" value="${v}"></td>`;
+    html += `<td class="sleep-cell"><select data-day="${d}" class="sleep-hours-input">${buildHourOptions(v)}</select></td>`;
   }
   html += '</tr><tr><td class="row-name">⭐ جودة النوم /١٠</td>';
   for(let d=1; d<=period.length; d++){
     const v = period.sleepQuality[d] !== undefined ? period.sleepQuality[d] : '';
-    html += `<td class="sleep-cell"><input type="number" step="1" min="0" max="10" data-day="${d}" class="sleep-quality-input" value="${v}"></td>`;
+    html += `<td class="sleep-cell"><select data-day="${d}" class="sleep-quality-input">${buildQualityOptions(v)}</select></td>`;
   }
   html += '</tr></tbody>';
   table.innerHTML = html;
@@ -837,6 +910,53 @@ function renderAll(){
     document.getElementById('startDateInput').value = formatISOLocal(new Date());
   }
   updateDateFieldVisibility();
+  renderPeriodsManageList();
+}
+
+function renderPeriodsManageList(){
+  const list = document.getElementById('periodsManageList');
+  if(!list) return;
+  let html = '';
+  state.periods.forEach((p,i)=>{
+    html += `<div class="period-row">
+      <span class="idx">${i+1}</span>
+      <input type="date" class="period-edit-date" data-idx="${i}" value="${p.startDate}">
+      <input type="number" class="period-edit-length" data-idx="${i}" value="${p.length}" min="1" max="90">
+      <span style="color:var(--muted);">يوم</span>
+      ${i===viewIndex ? '<span class="cur-tag">● معروضة الآن</span>' : ''}
+      <button class="btn small danger period-del-btn" data-idx="${i}">🗑 حذف</button>
+    </div>`;
+  });
+  list.innerHTML = html || '<div style="color:var(--muted);font-size:12px;padding:6px;">لا توجد فترات بعد</div>';
+
+  list.querySelectorAll('.period-edit-date').forEach(inp=>{
+    inp.addEventListener('change', ()=>{
+      const idx = Number(inp.dataset.idx);
+      if(!inp.value) return;
+      state.periods[idx].startDate = inp.value;
+      state.periods[idx].isCustomLength = true;
+      saveState(); renderAll();
+    });
+  });
+  list.querySelectorAll('.period-edit-length').forEach(inp=>{
+    inp.addEventListener('change', ()=>{
+      const idx = Number(inp.dataset.idx);
+      const val = Number(inp.value);
+      if(!val || val<1) return;
+      state.periods[idx].length = val;
+      state.periods[idx].isCustomLength = true;
+      saveState(); renderAll();
+    });
+  });
+  list.querySelectorAll('.period-del-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const idx = Number(btn.dataset.idx);
+      if(!confirm('هل تريدين حذف هذه الفترة نهائيًا؟ سيتم فقدان بيانات العادات والنوم المسجلة فيها.')) return;
+      state.periods.splice(idx,1);
+      if(idx <= viewIndex) viewIndex = Math.max(0, viewIndex-1);
+      saveState(); renderAll();
+    });
+  });
 }
 
 /* ---- Hijri picker UI ---- */
@@ -880,11 +1000,27 @@ function populateHijriSelects(){
 /* =====================================================================
    EVENTS
 ===================================================================== */
-document.getElementById('settingsBtn').addEventListener('click', ()=>{
-  document.getElementById('settingsPanel').classList.toggle('open');
-});
-document.getElementById('closeSettingsBtn').addEventListener('click', ()=>{
+function openSettingsPanel(){
+  document.getElementById('settingsPanel').classList.add('open');
+  document.getElementById('settingsBackdrop').classList.add('open');
+}
+function closeSettingsPanel(){
   document.getElementById('settingsPanel').classList.remove('open');
+  document.getElementById('settingsBackdrop').classList.remove('open');
+}
+document.getElementById('settingsBtn').addEventListener('click', openSettingsPanel);
+document.getElementById('closeSettingsBtn').addEventListener('click', closeSettingsPanel);
+document.getElementById('settingsBackdrop').addEventListener('click', closeSettingsPanel);
+
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme', state.theme);
+  document.getElementById('themeToggleBtn').textContent =
+    state.theme==='dark' ? '☀️ الوضع النهاري' : '🌙 الوضع الليلي';
+}
+document.getElementById('themeToggleBtn').addEventListener('click', ()=>{
+  state.theme = state.theme==='dark' ? 'light' : 'dark';
+  applyTheme();
+  saveState(); renderAll();
 });
 document.getElementById('optGregorian').addEventListener('click', ()=>{
   state.calendarType='gregorian'; saveState(); renderAll();
@@ -904,10 +1040,11 @@ document.getElementById('startPeriodBtn').addEventListener('click', ()=>{
     isoDate = document.getElementById('startDateInput').value;
     if(!isoDate) return;
   }
-  createPeriod(isoDate);
+  const customLen = Number(document.getElementById('customLengthInput').value) || undefined;
+  createPeriod(isoDate, customLen);
   viewIndex = state.periods.length-1;
   saveState(); renderAll();
-  document.getElementById('settingsPanel').classList.remove('open');
+  closeSettingsPanel();
 });
 document.getElementById('prevPeriodBtn').addEventListener('click', ()=>{
   if(viewIndex>0){ viewIndex--; renderAll(); }
@@ -937,6 +1074,7 @@ document.getElementById('addHabitBtn').addEventListener('click', ()=>{
 ===================================================================== */
 ensureCurrentPeriod();
 viewIndex = state.periods.length-1;
+applyTheme();
 saveState();
 renderAll();
 </script>
