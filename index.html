@@ -25,6 +25,7 @@
     --check:#3fbf7f;
     --cross:#f0616b;
     --gold:#e6c15a;
+    --text-soft:#d3d9e8;
     --radius:16px;
   }
   [data-theme="light"]{
@@ -34,6 +35,7 @@
     --line:#dde3ee;
     --text:#1b2436;
     --muted:#6b7690;
+    --text-soft:#2a3550;
   }
   [data-theme="light"] body::before{
     background:
@@ -108,7 +110,7 @@
   .settings-panel.open{display:block;}
   .settings-panel h3{font-size:13px;color:var(--muted);margin-bottom:12px;}
   .settings-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;align-items:center;}
-  .settings-row label{font-size:13px;color:#c8d0e0;font-weight:600;}
+  .settings-row label{font-size:13px;color:var(--text-soft);font-weight:600;}
   .radio-group{display:flex;gap:8px;}
   .radio-opt{
     display:flex;align-items:center;gap:6px;
@@ -127,8 +129,8 @@
   .period-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:6px 4px;border-bottom:1px solid var(--line);font-size:12px;}
   .period-row:last-child{border-bottom:none;}
   .period-row .idx{color:var(--muted);min-width:18px;font-weight:700;}
-  .period-row input[type="date"]{font-size:12px;padding:5px 6px;}
-  .period-row input[type="number"]{width:56px;font-size:12px;padding:5px 6px;}
+  .period-row input[type="date"]{font-size:16px;padding:5px 6px;}
+  .period-row input[type="number"]{width:60px;font-size:16px;padding:5px 6px;}
   .period-row .cur-tag{font-size:10px;color:var(--cyan);font-weight:700;}
 
   /* period nav */
@@ -136,7 +138,7 @@
     display:flex;align-items:center;justify-content:center;gap:10px;
     margin:16px 0 14px;flex-wrap:wrap;
   }
-  .period-label{font-size:14px;font-weight:700;color:#c8d0e0;text-align:center;min-width:180px;}
+  .period-label{font-size:14px;font-weight:700;color:var(--text-soft);text-align:center;min-width:180px;}
   .period-badge{
     font-size:10.5px;color:var(--gold);font-weight:700;display:block;margin-top:2px;
   }
@@ -160,7 +162,7 @@
   .stat-card .label{font-size:12px;color:var(--muted);margin-top:3px;font-weight:700;}
 
   .habit-list{list-style:none;margin:0;padding:0;font-size:13.5px;}
-  .habit-list li{display:flex;gap:10px;align-items:center;padding:8px 4px;border-bottom:1px solid var(--line);color:#d3d9e8;}
+  .habit-list li{display:flex;gap:10px;align-items:center;padding:8px 4px;border-bottom:1px solid var(--line);color:var(--text-soft);}
   .habit-list li:last-child{border-bottom:none;}
   .habit-list li span.idx{color:var(--muted);width:18px;flex:none;font-weight:700;}
   .habit-list.edit li{gap:8px;flex-wrap:wrap;}
@@ -184,7 +186,7 @@
   table.habits{border-collapse:collapse;width:100%;min-width:840px;font-size:12px;}
   table.habits thead tr.week-row th{padding:6px 0;font-size:12px;font-weight:800;border-radius:8px;color:#fff;}
   table.habits thead tr.day-row th{padding:5px 0;color:var(--muted);font-weight:700;font-size:10px;}
-  table.habits tbody td.row-name{text-align:right;padding-right:10px;white-space:nowrap;color:#d3d9e8;font-size:12px;font-weight:600;position:sticky;right:0;background:var(--panel);}
+  table.habits tbody td.row-name{text-align:right;padding-right:10px;white-space:nowrap;color:var(--text-soft);font-size:12px;font-weight:600;position:sticky;right:0;background:var(--panel);}
   table.habits tbody tr:hover td.row-name{color:var(--cyan);}
   .cell-mark{
     width:20px;height:20px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;
@@ -197,20 +199,20 @@
 
   .progress-list{width:100%;border-collapse:collapse;font-size:12px;}
   .progress-list th{color:var(--muted);text-align:right;font-weight:700;padding:5px 3px;font-size:10.5px;}
-  .progress-list td{padding:6px 3px;color:#d3d9e8;vertical-align:middle;}
+  .progress-list td{padding:6px 3px;color:var(--text-soft);vertical-align:middle;}
   .bar-track{background:#0b1424;border-radius:7px;height:10px;width:100%;overflow:hidden;}
   .bar-fill{height:100%;border-radius:7px;}
   .goal-tag{font-size:10px;color:var(--gold);font-weight:700;white-space:nowrap;}
 
   .weekly-list{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px;}
-  .weekly-list td{padding:6px 3px;color:#d3d9e8;}
+  .weekly-list td{padding:6px 3px;color:var(--text-soft);}
 
   .legend{display:flex;gap:16px;font-size:12px;color:var(--muted);margin-top:10px;justify-content:center;font-weight:600;}
   .legend span{display:inline-flex;align-items:center;gap:6px;}
   .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
 
   .simple-list{list-style:none;margin:0;padding:0;font-size:13px;}
-  .simple-list li{padding:8px 4px;border-bottom:1px solid var(--line);color:#d3d9e8;font-weight:600;display:flex;align-items:center;gap:10px;}
+  .simple-list li{padding:8px 4px;border-bottom:1px solid var(--line);color:var(--text-soft);font-weight:600;display:flex;align-items:center;gap:10px;}
   .simple-list li:last-child{border-bottom:none;}
   .simple-list li span.idx{
     width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;
@@ -637,10 +639,11 @@ function renderProgressChart(period, dailyProgress){
     data:{ labels, datasets:[{ data:dailyProgress, backgroundColor:colors, borderRadius:6, barPercentage:0.75 }]},
     options:{
       maintainAspectRatio:false,
+      animation:false,
       plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>c.parsed.y+'%'}}},
       scales:{
-        x:{grid:{display:false}, ticks:{color:'#8b96ad', font:{size:10}}},
-        y:{grid:{color:'#1f2a42'}, ticks:{color:'#8b96ad', callback:v=>v+'%'}, min:0, max:100}
+        x:{grid:{display:false}, ticks:{color:cssVar('--muted'), font:{size:10}}},
+        y:{grid:{color:cssVar('--line')}, ticks:{color:cssVar('--muted'), callback:v=>v+'%'}, min:0, max:100}
       }
     }
   });
@@ -656,15 +659,16 @@ function renderTrendChart(period, dailyProgress){
   trendChartInst = new Chart(ctx, {
     type:'line',
     data:{ labels, datasets:[{
-      data:dailyProgress, borderColor:'#bcd6de', backgroundColor:'rgba(120,160,170,0.22)',
+      data:dailyProgress, borderColor:cssVar('--text-soft'), backgroundColor:'rgba(120,160,170,0.22)',
       fill:true, tension:0.45, pointRadius:0, borderWidth:2.5, cubicInterpolationMode:'monotone'
     }]},
     options:{
       maintainAspectRatio:false,
+      animation:false,
       plugins:{legend:{display:false}},
       scales:{
-        x:{grid:{display:false}, ticks:{color:'#8b96ad', font:{size:10}}},
-        y:{grid:{color:'#1f2a42'}, ticks:{color:'#8b96ad', callback:v=>v+'%'}, min:0, max:100}
+        x:{grid:{display:false}, ticks:{color:cssVar('--muted'), font:{size:10}}},
+        y:{grid:{color:cssVar('--line')}, ticks:{color:cssVar('--muted'), callback:v=>v+'%'}, min:0, max:100}
       }
     }
   });
@@ -688,11 +692,12 @@ function renderSleepChart(period){
     ]},
     options:{
       maintainAspectRatio:false,
+      animation:false,
       plugins:{legend:{display:false}},
       scales:{
-        x:{grid:{display:false}, ticks:{color:'#8b96ad', font:{size:10}}},
-        y:{ position:'left', min:0, max:12, grid:{color:'#1f2a42'}, ticks:{color:'#8b96ad'} },
-        y1:{ position:'right', min:0, max:10, grid:{display:false}, ticks:{color:'#8b96ad'} }
+        x:{grid:{display:false}, ticks:{color:cssVar('--muted'), font:{size:10}}},
+        y:{ position:'left', min:0, max:12, grid:{color:cssVar('--line')}, ticks:{color:cssVar('--muted')} },
+        y1:{ position:'right', min:0, max:10, grid:{display:false}, ticks:{color:cssVar('--muted')} }
       }
     }
   });
@@ -884,6 +889,8 @@ function bindEditableHabitInputs(){
 }
 
 function renderAll(){
+  const scrollX = window.scrollX, scrollY = window.scrollY;
+
   ensureCurrentPeriod();
   if(viewIndex > state.periods.length-1) viewIndex = state.periods.length-1;
   const period = currentPeriod();
@@ -911,6 +918,8 @@ function renderAll(){
   }
   updateDateFieldVisibility();
   renderPeriodsManageList();
+
+  window.scrollTo(scrollX, scrollY);
 }
 
 function renderPeriodsManageList(){
