@@ -143,7 +143,7 @@
     font-size:10.5px;color:var(--gold);font-weight:700;display:block;margin-top:2px;
   }
 
-  .grid{display:grid;grid-template-columns:260px 1fr 280px;gap:16px;align-items:start;}
+  .grid{display:grid;grid-template-columns:260px 1fr;gap:16px;align-items:start;}
   .panel{
     background:linear-gradient(180deg,var(--panel) 0%, var(--panel-2) 100%);
     border:1px solid var(--line); border-radius:var(--radius); padding:16px;
@@ -176,7 +176,7 @@
   .chart-box canvas{width:100% !important;}
   #progressChart{height:240px !important;}
   #trendChart{height:280px !important;}
-  #sleepChart{height:360px !important;}
+  #sleepChart{height:280px !important;}
 
   .week-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;justify-content:center;}
   .week-legend span{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);font-weight:700;}
@@ -322,6 +322,16 @@
       </div>
 
       <div class="panel full-panel">
+        <h3>🎯 التقدم حسب العادة</h3>
+        <table class="progress-list" id="habitProgressTable"></table>
+      </div>
+
+      <div class="panel full-panel">
+        <h3>📅 التقدم الأسبوعي</h3>
+        <table class="weekly-list" id="weeklyTable"></table>
+      </div>
+
+      <div class="panel full-panel">
         <h3>🏆 أكثر العادات التزامًا</h3>
         <ol class="simple-list top" id="topHabits"></ol>
       </div>
@@ -351,39 +361,26 @@
         <h3>📈 مستوى الإنجاز خلال الفترة</h3>
         <canvas id="trendChart"></canvas>
       </div>
-    </div>
 
-    <!-- RIGHT COLUMN -->
-    <div>
-      <div class="panel">
-        <h3>🎯 التقدم حسب العادة</h3>
-        <table class="progress-list" id="habitProgressTable"></table>
+      <div class="panel mid-section chart-box">
+        <h3>💤 مقارنة ساعات النوم بجودة النوم</h3>
+        <canvas id="sleepChart"></canvas>
+        <div class="legend">
+          <span><span class="dot" style="background:var(--w2)"></span> ساعات النوم</span>
+          <span><span class="dot" style="background:var(--w4)"></span> جودة النوم (من ١٠)</span>
+        </div>
+        <div class="avg-row">
+          <div class="avg-card"><div class="v" id="avgSleepHours">0</div><div class="l">معدل ساعات النوم</div></div>
+          <div class="avg-card"><div class="v" id="avgSleepQuality">0</div><div class="l">معدل جودة النوم / ١٠</div></div>
+        </div>
       </div>
 
-      <div class="panel full-panel">
-        <h3>📅 التقدم الأسبوعي</h3>
-        <table class="weekly-list" id="weeklyTable"></table>
+      <div class="panel mid-section">
+        <h3>🌙 إدخال بيانات النوم اليومية</h3>
+        <div class="table-scroll">
+          <table class="habits" id="sleepInputTable"></table>
+        </div>
       </div>
-    </div>
-  </div>
-
-  <div class="panel full-panel chart-box">
-    <h3>💤 مقارنة ساعات النوم بجودة النوم</h3>
-    <canvas id="sleepChart"></canvas>
-    <div class="legend">
-      <span><span class="dot" style="background:var(--w2)"></span> ساعات النوم</span>
-      <span><span class="dot" style="background:var(--w4)"></span> جودة النوم (من ١٠)</span>
-    </div>
-    <div class="avg-row">
-      <div class="avg-card"><div class="v" id="avgSleepHours">0</div><div class="l">معدل ساعات النوم</div></div>
-      <div class="avg-card"><div class="v" id="avgSleepQuality">0</div><div class="l">معدل جودة النوم / ١٠</div></div>
-    </div>
-  </div>
-
-  <div class="panel full-panel">
-    <h3>🌙 إدخال بيانات النوم اليومية</h3>
-    <div class="table-scroll">
-      <table class="habits" id="sleepInputTable"></table>
     </div>
   </div>
 
